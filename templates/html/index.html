@@ -22,6 +22,11 @@
             text-decoration: none;
             color: #333;
         }
+        .task-desription {
+            flex: 1;
+            text-decoration: none;
+            color: #333;
+        }
         .completed .task-title {
             text-decoration: line-through;
             color: #999; /* Цвет для выполненного задания */
@@ -41,6 +46,7 @@
             <div class="task {% if task.done %}completed{% endif %}">
                 <input type="checkbox" {% if task.done %}checked{% endif %} disabled>
                 <p class="task-title">{{ task.title }}</p>
+                <p class="task-description">{{  task.description }}</p>
             </div>
         {% endfor %}
     </div>
