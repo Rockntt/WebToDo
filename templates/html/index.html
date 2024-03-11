@@ -31,7 +31,7 @@
 <body>
     <h1>ToDo App</h1>
     <form method="post">
-        {% csrftoken %}
+        {% csrf_token %}
         <input type="text" name="title" placeholder="Введите название задания" required><br>
         <textarea name="description" placeholder="Описание задания" rows="4"></textarea><br>
         <button type="submit">Добавить задание</button>
