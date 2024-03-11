@@ -38,6 +38,21 @@
     {% if request.user.is_authenticated %}
         <h4>Your Tasks</h4>
         <p>Welcome, {{ request.user.username }}!</p>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Add Task</button>
+        </form>
+        <ul>
+            {% for task in tasks %}
+                <li>
+                    <input type="checkbox" {% if task.done %}checked{% endif %}>
+                    {{ task.title }}
+                    <br>
+                    {{ task.description }}
+                </li>
+            {% endfor %}
+        </ul>
         <a href="{% url 'logout' %}">Log Out</a>
     {% else %}
         <h4>Simple web To-Do</h4>
@@ -45,6 +60,7 @@
         <a href="{% url 'signin' %}">Sign In</a>
         <a href="{% url 'signup' %}">Sign Up</a>
     {% endif %}
+    
 </body>
 
 </html>
