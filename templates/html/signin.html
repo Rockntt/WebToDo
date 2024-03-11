@@ -54,11 +54,10 @@
     <div class="container">
         <form class="auth-form" method="post">
             {% csrf_token %}
-            {% if form.errors %}
-                <p style="color: red;">Invalid username or password. Please try again!</p>
-            {% endif %}
             {{ form.as_p }}
             <button type="submit">Sign In</button>
+            <br><p>Not registered yet?</p>
+            <button onclick="window.location.href = '/signup';" type="button">Sign Up</button>
         </form>
     </div>
 </body>

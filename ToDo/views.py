@@ -1,7 +1,5 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from .models import ToDoTask
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
 from .forms import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
@@ -9,18 +7,19 @@ from django.contrib.auth.forms import AuthenticationForm
 
 # Create your views here.
 
+@login_required
 def home(request):
-    tasks = ToDoTask.objects.all()
+    tasks = ToDoTask.objects.filter(user=request.user)
     if request.method == 'POST':
-        title = request.POST.get('title')
-        description = request.POST.get('description')
-        existing_task = ToDoTask.objects.filter(title=title, user=request.user).exists()
-        if not existing_task:
-            task = ToDoTask(user=request.user, title=title, description=description)
+        form = ToDoTaskForm(request.POST)
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.user = request.user
             task.save()
-            return redirect('')  # Перенаправляем на страницу со списком заданий
-
-    return render(request, 'html/index.html', {'tasks': tasks})
+            return redirect('home')
+    else:
+        form = ToDoTaskForm()
+    return render(request, 'html/index.html', {'form': form, 'tasks': tasks})
 
 
 def sign_up(request):

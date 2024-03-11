@@ -55,7 +55,7 @@
         <form class="auth-form" method="post">
             {% csrf_token %}
             {% if form.errors %}
-                <p style="color: red;">Please correct the errors below and try again.</p>
+                <p style="color: red;">Please correct your register data and try again!</p>
             {% endif %}
             {{ form.as_p }}
             <button type="submit">Sign Up</button>

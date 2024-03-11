@@ -6,61 +6,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDo App</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-weight: 400;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f1f1f1;
+        }
+
+        .container {
+            max-width: 400px;
+            padding: 20px;
+            background: #fafafa;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        input {
+            width: 80%;
+            padding: 10px;
+            margin-top: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            box-sizing: border-box;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
         .task {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             background-color: #f9f9f9;
             padding: 10px;
             border-radius: 5px;
             margin-top: 10px;
         }
-        input[type="checkbox"] {
+        .task-checkbox {
             margin-right: 10px;
+            align-self: flex-start;
+        }
+        .task-content {
+            display: flex;
+            flex-direction: column;
         }
         .task-title {
-            flex: 1;
             text-decoration: none;
             color: #333;
         }
-        .task-desription {
-            flex: 1;
-            text-decoration: none;
+        .task-description {
             color: #333;
+            margin-left: 0px;
         }
         .completed .task-title {
             text-decoration: line-through;
-            color: #999; /* Цвет для выполненного задания */
+            color: #999;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
         }
     </style>
 </head>
 <body>
-    <h2>ToDo App</h2>
-    {% if request.user.is_authenticated %}
-        <h4>Your Tasks</h4>
-        <p>Welcome, {{ request.user.username }}!</p>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Add Task</button>
-        </form>
-        <ul>
-            {% for task in tasks %}
-                <li>
-                    <input type="checkbox" {% if task.done %}checked{% endif %}>
-                    {{ task.title }}
-                    <br>
-                    {{ task.description }}
-                </li>
-            {% endfor %}
-        </ul>
-        <a href="{% url 'logout' %}">Log Out</a>
-    {% else %}
-        <h4>Simple web To-Do</h4>
-        <p>Register to start reaching your goals</p>
-        <a href="{% url 'signin' %}">Sign In</a>
-        <a href="{% url 'signup' %}">Sign Up</a>
-    {% endif %}
-    
+    <div class="container">
+        <h2>ToDo App</h2>
+        {% if request.user.is_authenticated %}
+            <p>Welcome back, {{ request.user.username }}!</p>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Add Task</button>
+            </form>
+            <ul>
+                {% for task in tasks %}
+                    <div class="task">
+                        <input type="checkbox" class="task-checkbox" {% if task.done %}checked{% endif %}>
+                        <div class="task-content">
+                            <div class="task-title">{{ task.title }}</div>
+                            <div class="task-description">{{ task.description }}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </ul>
+            <a href="{% url 'logout' %}">Log Out</a>
+        {% else %}
+            <h4>Simple web To-Do</h4>
+            <p>Register to start reaching your goals</p>
+            <a href="{% url 'signin' %}">Sign In</a>
+            <a href="{% url 'signup' %}">Sign Up</a>
+        {% endif %}
+    </div>
 </body>
-
 </html>
