@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto; 
+            background-color: #fff; 
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        h1 {
+            font-size: 28px;
+            color: #333; 
+        }
+        form {
+            margin-top: 20px;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4285F4; 
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .task {
+            display: flex;
+            align-items: center;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        .task-title {
+            flex: 1;
+            text-decoration: none;
+            color: #333;
+        }
+        .task-title.completed {
+            text-decoration: line-through;
+            color: #999; /* Цвет для выполненного задания */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ToDo App</h1>
+        <form>
+            <input type="text" placeholder="Введите название задания" required><br>
+            <textarea placeholder="Описание задания" rows="4"></textarea><br>
+            <button type="submit">Добавить задание</button>
+        </form>
+        <div class="tasks">
+            <div class="task">
+                <input type="checkbox">
+                <p class="task-title">Title of Task</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
