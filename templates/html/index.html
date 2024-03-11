@@ -34,21 +34,17 @@
     </style>
 </head>
 <body>
-    <h1>ToDo App</h1>
-    <form method="post">
-        {% csrf_token %}
-        <input type="text" name="title" placeholder="Введите название задания" required><br>
-        <textarea name="description" placeholder="Описание задания" rows="4"></textarea><br>
-        <button type="submit">Добавить задание</button>
-    </form>
-    <div class="tasks">
-        {% for task in tasks %}
-            <div class="task {% if task.done %}completed{% endif %}">
-                <input type="checkbox" {% if task.done %}checked{% endif %} disabled>
-                <p class="task-title">{{ task.title }}</p>
-                <p class="task-description">{{  task.description }}</p>
-            </div>
-        {% endfor %}
-    </div>
+    <h2>ToDo App</h2>
+    {% if request.user.is_authenticated %}
+        <h4>Your Tasks</h4>
+        <p>Welcome, {{ request.user.username }}!</p>
+        <a href="{% url 'logout' %}">Log Out</a>
+    {% else %}
+        <h4>Simple web To-Do</h4>
+        <p>Register to start reaching your goals</p>
+        <a href="{% url 'signin' %}">Sign In</a>
+        <a href="{% url 'signup' %}">Sign Up</a>
+    {% endif %}
 </body>
+
 </html>
