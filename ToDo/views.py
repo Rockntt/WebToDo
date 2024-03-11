@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import ToDoTask
 
 # Create your views here.
 
 def home(request):
+    tasks = ToDoTask.objects.all()
     if request.method == 'POST':
         title = request.POST.get('title')
         description = request.POST.get('description')
@@ -11,6 +12,6 @@ def home(request):
         if not existing_task:
             task = ToDoTask(user=request.user, title=title, description=description)
             task.save()
-            return redirect('task_list')  # Перенаправляем на страницу со списком заданий
+            return redirect('')  # Перенаправляем на страницу со списком заданий
 
     return render(request, 'html/index.html', {'tasks': tasks})
