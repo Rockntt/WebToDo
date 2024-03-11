@@ -6,41 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ToDo App</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f2f2f2;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto; 
-            background-color: #fff; 
-            padding: 20px;
-            border-radius: 5px;
-            margin-top: 20px;
-        }
-        h1 {
-            font-size: 28px;
-            color: #333; 
-        }
-        form {
-            margin-top: 20px;
-        }
-        input[type="text"], textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #4285F4; 
-            color: #fff;
-            border: none;
-            cursor: pointer;
-        }
         .task {
             display: flex;
             align-items: center;
@@ -57,26 +22,27 @@
             text-decoration: none;
             color: #333;
         }
-        .task-title.completed {
+        .completed .task-title {
             text-decoration: line-through;
             color: #999; /* Цвет для выполненного задания */
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>ToDo App</h1>
-        <form>
-            <input type="text" placeholder="Введите название задания" required><br>
-            <textarea placeholder="Описание задания" rows="4"></textarea><br>
-            <button type="submit">Добавить задание</button>
-        </form>
-        <div class="tasks">
-            <div class="task">
-                <input type="checkbox">
-                <p class="task-title">Title of Task</p>
+    <h1>ToDo App</h1>
+    <form method="post">
+        {% csrftoken %}
+        <input type="text" name="title" placeholder="Введите название задания" required><br>
+        <textarea name="description" placeholder="Описание задания" rows="4"></textarea><br>
+        <button type="submit">Добавить задание</button>
+    </form>
+    <div class="tasks">
+        {% for task in tasks %}
+            <div class="task {% if task.done %}completed{% endif %}">
+                <input type="checkbox" {% if task.done %}checked{% endif %} disabled>
+                <p class="task-title">{{ task.title }}</p>
             </div>
-        </div>
+        {% endfor %}
     </div>
 </body>
 </html>
