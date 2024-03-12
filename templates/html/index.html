@@ -109,7 +109,7 @@
                     </div>
                 {% endfor %}
             </ul>
-            <a href="{% url 'logout' %}">Log Out</a>
+            <button onclick="window.location.href = '/logout';" type="button">Log Out</button>
         {% else %}
             <h4>Simple web To-Do</h4>
             <p>Register to start reaching your goals</p>
